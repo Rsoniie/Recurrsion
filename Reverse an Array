@@ -1,0 +1,19 @@
+*********USING RECURSSION**************
+#include <bits/stdc++.h> 
+void re(vector<int> &arr, int l, int r)
+{
+  if(l >= r)
+  {
+    return;
+  }
+  swap(arr[l],arr[r]);
+  l++;
+  r--;
+  re(arr, l, r);
+}
+void reverseArray(vector<int> &arr , int m)
+{
+	int l = m+1;
+  int r = arr.size()-1;
+  re(arr, l, r);
+}
