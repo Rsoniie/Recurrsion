@@ -25,3 +25,4 @@ vector<string> subsequences(string str){
     return ans;
 	
 }
+****FOR PRINTING ALL SUBSEQUENCES ALL SAME ONLY MAINTAIN A VARIABLE SUM AND APPLY A CHECK FOR THAT SUM ALSO************
