@@ -1,0 +1,76 @@
+********USING RECURRSION ****NORMAL APPROACH ********TC = O(2^TAR*LOGN)*******
+# include<bits/stdc++.h>
+void sum(int ind, int tar, vector<int>&arr, vector<int>&ds, vector<vector<int>>&ans)
+{
+	if(ind == arr.size())
+	{
+		if(tar == 0)
+		{
+			ans.push_back(ds);
+		}
+		return ;
+	}
+
+	if(arr[ind] <= tar)
+	{
+		ds.push_back(arr[ind]);
+		sum(ind+1, tar-arr[ind], arr, ds, ans);
+		ds.pop_back();
+	}
+
+	sum(ind+1, tar, arr, ds, ans);
+}
+vector<vector<int>> combinationSum2(vector<int> &arr, int n, int target){
+	vector<vector<int>> ans;
+	vector<int> ds;
+	sort(arr.begin(), arr.end());
+
+	sum(0, target, arr, ds, ans);
+	set<vector<int>> st;
+	for(auto i:ans)
+	{
+		st.insert(i);
+	}
+	ans.clear();
+	for(auto i:st)
+	{
+		ans.push_back(i);
+	}
+	return ans;
+
+}
+
+
+***********OPTIMISED APPROACH USING LOGIC TC = O(2^TAR)***********
+# include<bits/stdc++.h>
+void sum(int ind, int tar, vector<int>&ds, vector<int>&arr, vector<vector<int>>&ans)
+{
+	if(tar == 0)
+	{
+		ans.push_back(ds);
+		return ;
+	}
+	for(int i=ind;i<arr.size();i++)
+	{
+		if(i > ind && arr[i] == arr[i-1])
+		{
+			continue;
+		}
+		if(arr[i] > tar)
+		{
+			break;
+		}
+
+		ds.push_back(arr[i]);
+		sum(i+1, tar-arr[i], ds, arr, ans);
+		ds.pop_back();
+	}
+}
+vector<vector<int>> combinationSum2(vector<int> &arr, int n, int target){
+	vector<int> ds;
+	vector<vector<int>> ans;
+	sort(arr.begin(), arr.end());
+	sum(0, target, ds, arr , ans);
+	return ans;
+}
+
