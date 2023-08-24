@@ -1,0 +1,59 @@
+********APPROACH 1 USING FREQ VECTOR ********AND RECURSSION********
+# include<bits/stdc++.h>
+void f(string &ds, string&str, vector<int>&freq, vector<string>&ans)
+{
+    if(ds.size() == str.size())
+    {
+        ans.push_back(ds);
+        return ;
+    }
+
+    for(int i=0;i<str.size();i++)
+    {
+        if(!freq[i])
+        {
+            ds.push_back(str[i]);
+            freq[i] = 1;
+            f(ds, str, freq, ans);
+            freq[i] = 0;
+            ds.pop_back();
+        }
+    }
+}
+vector<string> generatePermutations(string &str)
+{
+    vector<string> ans;
+    string ds;
+    vector<int> freq(str.size(),0);
+    f(ds,str, freq, ans);
+    sort(ans.begin(), ans.end());
+    return ans;
+}
+
+
+*************APPROACH 2 WITHOUT USING FREQ VECTOR*****************
+
+
+#include<bits/stdc++.h>
+void f(int ind, string &str, vector<string>&ans)
+{
+    if(ind == str.size())
+    {
+        ans.push_back(str);
+        return ;
+    }
+
+    for(int i=ind;i<str.size();i++)
+    {
+        swap(str[ind], str[i]);
+        f(ind+1, str, ans);
+        swap(str[ind], str[i]);
+    }
+}
+vector<string> generatePermutations(string &str)
+{
+    vector<string> ans;
+    f(0,str, ans);
+    sort(ans.begin(), ans.end());
+    return ans;
+}
