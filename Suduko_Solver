@@ -1,0 +1,64 @@
+*********USING RECURSSION*********
+
+#include <bits/stdc++.h> 
+
+bool issafe(int val, vector<vector<int>>&board, int x, int y)
+{
+    int n = board.size();
+    for(int i=0;i<n;i++)
+    {
+        if(board[x][i] == val)
+        {
+            return false;
+        }
+
+        if(board[i][y] == val)
+        {
+            return false;
+        }
+
+        if(board[3*(x/3)+i/3][3*(y/3)+i%3] == val)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+bool solve(vector<vector<int>>&board)
+{
+    int n = board[0].size();
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(board[i][j] == 0)
+            {
+                for(int k=1;k<=9;k++)
+                {
+                    if(issafe(k, board, i, j))
+                    {
+                        board[i][j] = k;
+                        bool nxt = solve(board);
+                        if(nxt)
+                        {
+                            return true;
+                        }
+                        else 
+                        {
+                            board[i][j] = 0;
+                        }
+                    }
+                }
+
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+void solveSudoku(vector<vector<int>>& sudoku)
+{
+    solve(sudoku);
+}
